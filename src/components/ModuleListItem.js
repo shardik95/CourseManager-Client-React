@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter as Router,Link,Route} from 'react-router-dom'
 
 class ModuleListItem extends React.Component{
 
@@ -9,7 +10,11 @@ class ModuleListItem extends React.Component{
 
     render(){
         return(
-            <tr><td>{this.props.module.title}</td>
+            <tr><td>
+                <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
+                {this.props.module.title}
+                </Link>
+                </td>
                 <td><span className="float-right">
                    <button type="button" className="btn" onClick={() =>{
                        this.props.delete(this.props.module.id)

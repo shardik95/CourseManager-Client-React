@@ -1,6 +1,8 @@
 import React from 'react';
 import ModuleList from "./ModuleList";
-
+import ModuleEditor from "./ModuleEditor";
+import {BrowserRouter as Router,Link,Route}
+    from 'react-router-dom'
 
 class CourseEditor extends React.Component{
 
@@ -29,8 +31,8 @@ class CourseEditor extends React.Component{
             <div>
                 <h3>Course Editor</h3>
                 <div>
-                    <div className="row">
-                        <div className="col-4">
+                    <div>
+                        <div>
                             <table className="table table-bordered">
                                 <thead>
                                     <tr><th>Modules</th></tr>
@@ -41,9 +43,7 @@ class CourseEditor extends React.Component{
 
                             </table>
                         </div>
-                        <div className="col-8">
-                            <h4>Lessons</h4>
-                        </div>
+
                     </div>
                 </div>
             </div>

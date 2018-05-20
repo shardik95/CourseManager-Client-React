@@ -55,7 +55,7 @@ class ModuleList extends React.Component{
     renderModules(){
         return this.state.modules.map(
             (module) =>{
-                return <ModuleListItem module={module} key={module.id} delete={this.deleteModule}/>
+                return <ModuleListItem courseId={this.state.courseId} module={module} key={module.id} delete={this.deleteModule}/>
             }
         )
     }
@@ -83,22 +83,6 @@ class ModuleList extends React.Component{
                 </tbody>
             </table>
 
-
-
-            /*<div>
-                <div className="row">
-                    <div className="col-10">
-
-                    </div>
-                    <div className="col-2">
-
-                    </div>
-                </div>
-                <br/>
-                <ul className="list-group">
-                    {this.renderModules()}
-                </ul>
-            </div>*/
 
         );
     }
