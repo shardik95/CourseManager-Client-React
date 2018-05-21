@@ -77,13 +77,24 @@ class LessonTabs extends React.Component{
 
     render(){
         return(
-            <div>
-                <ul className="list-inline">
+            <div className="row">
+                <div>
+                <nav className="navbar navbar-dark bg-dark navbar-expand ">
+                 <ul className="navbar-nav">
                     {this.renderLessons()}
-                    <li className="list-inline-item"><input type="text" placeholder="Lesson 1"
-                                                            className="form-control" onChange={this.titleChanged}/></li>
-                    <button className="btn"><i className="fa fa-plus" onClick={this.createLesson}></i></button>
-                </ul>
+                    </ul>
+                </nav>
+                </div>
+                <div>
+                    <nav className="navbar navbar-dark bg-dark navbar-expand ">
+                        <ul className="navbar-nav">
+                        <li className="nav-item"><input type="text" placeholder="Lesson 1"
+                                                        className="form-control navbar-right" onChange={this.titleChanged}/></li>
+                        &nbsp;
+                        <li className="nav-item"><button className="btn btn-dark navbar-right"><i className="fa fa-plus" onClick={this.createLesson}></i></button></li>
+                    </ul>
+                    </nav>
+                </div>
             </div>
 
         )

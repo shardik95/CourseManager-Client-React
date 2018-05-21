@@ -1,17 +1,19 @@
 import React from 'react';
 import ModuleList from "./ModuleList";
-import ModuleEditor from "./ModuleEditor";
-import {BrowserRouter as Router,Link,Route}
-    from 'react-router-dom'
+import CourseService from "../services/CourseService";
 
 class CourseEditor extends React.Component{
 
     constructor(props){
         super(props);
         this.state={
-            courseId:''
+            courseId:'',
+            course:{title:""}
         }
         this.selectCourse=this.selectCourse.bind(this);
+        this.courseService=CourseService.instance;
+        this.getCourseName=this.getCourseName.bind(this);
+        this.setCourse=this.setCourse.bind(this);
     }
 
     componentDidMount(){
@@ -20,30 +22,36 @@ class CourseEditor extends React.Component{
 
     componentWillReceiveProps(newProps){
         this.selectCourse(newProps.match.params.courseId);
+        this.getCourseName(newProps.match.params.courseId);
     }
 
     selectCourse(id){
         this.setState({courseId:id});
     }
 
+    setCourse(course){
+        return this.setState({course:{title:course.title}});
+    }
+
+    getCourseName(courseId){
+        return this.courseService.findCourseById(courseId)
+            .then((course)=>{
+                return this.setCourse(course);
+            }).then(()=>{
+                return this.state.course.title;
+            })
+    }
+
+
     render(){
         return (
             <div>
-                <h3>Course Editor</h3>
+                <h1>{this.state.course.title}</h1>
                 <div>
                     <div>
                         <div>
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr><th>Modules</th></tr>
-                                </thead>
-                                <tbody>
-                                <tr><td><ModuleList courseId={this.state.courseId}/></td></tr>
-                                </tbody>
-
-                            </table>
+                         <ModuleList courseId={this.state.courseId}/>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -10,10 +10,14 @@ class CourseList extends React.Component{
         this.state={
             course:{title:"",created:"",modified:""},
             courses:[],
+            edit:{title:"",id:"",modified:""},
+            editTitle:""
         }
         this.titleChanged=this.titleChanged.bind(this);
         this.createCourse=this.createCourse.bind(this);
         this.deleteCourse=this.deleteCourse.bind(this);
+        this.populateForm=this.populateForm.bind(this);
+        this.updateCourse=this.updateCourse.bind(this);
     }
 
     componentDidMount(){
@@ -63,33 +67,62 @@ class CourseList extends React.Component{
             });
     }
 
+    populateForm(courseId,title){
+        this.setState({edit:{title:this.state.editTitle,id:courseId,modified:this.dateTime()}});
+    }
+
     renderAllCourses(){
         return this.state.courses.map((course)=>{
-            return <CourseRow course={course} key={course.id} delete={this.deleteCourse}/>
+            return <CourseRow course={course} key={course.id} delete={this.deleteCourse} populateForm={this.populateForm}/>
         });
     }
 
     titleChanged(event){
-        return this.setState({course:{title:event.target.value,created:this.dateTime(),modified:this.dateTime()}});
+        var x=event.target.value;
+        this.setState({editTitle:x})
+        return this.setState({course:{title:x,created:this.dateTime(),modified:this.dateTime()}});
     }
 
     createCourse(){
-        this.courseService.createCourse(this.state.course)
+        if(this.state.course.title==""){
+            var course={
+                title:"New Course",
+                created:this.dateTime(),
+                modified:this.dateTime()
+            }
+            this.courseService.createCourse(course)
+                .then(()=>{
+                    this.findAllCourses();
+                });
+        }
+        else{
+            this.courseService.createCourse(this.state.course)
+                .then(()=>{
+                    this.findAllCourses();
+                });
+        }
+
+    }
+
+    updateCourse(){
+        return this.courseService.updateCourse(this.state.edit)
             .then(()=>{
                 this.findAllCourses();
-            });
+            })
     }
 
     render(){
         return(
             <div>
                 <h1>Course Manager</h1>
-                <table className="table">
+                <table className="table table-hover">
                     <thead>
-                        <tr>
-                            <th>Add Course</th>
+                        <tr style={{background:'#4286f4'}}>
+                            <th style={{color:"white"}}><h4>Add Course</h4></th>
                             <td colSpan="2"><input className="form-control" placeholder="CS1111" onChange={this.titleChanged}/></td>
-                            <th><button className="btn"><i className="fa fa-2x fa-plus" onClick={this.createCourse}></i></button></th>
+                            <th><button className="btn" style={{background:"#4286f4"}}><i className="fa fa-2x fa-plus" onClick={this.createCourse}
+                                                           style={{color:"green"}}></i></button>
+                            </th>
                         </tr>
                         <tr>
                             <th>Title</th>

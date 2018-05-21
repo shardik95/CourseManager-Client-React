@@ -14,8 +14,12 @@ class CourseManager extends Component{
                         <div>
                             <Route path="/courses" component={CourseList}></Route>
                                 <div className="row">
-                                    <Route path='/course/:courseId' component={CourseEditor}></Route>
-                                    <Route path='/course/:courseId/module/:moduleId' component={ModuleEditor}></Route>
+                                    <div className="col-4">
+                                        <Route path='/course/:courseId' component={CourseEditor}></Route>
+                                    </div>
+                                    <div className="col-8">
+                                        <Route path='/course/:courseId/module/:moduleId' component={ModuleEditor}></Route>
+                                    </div>
                                 </div>
                         </div>
                 </div>

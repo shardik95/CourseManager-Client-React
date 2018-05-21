@@ -9,9 +9,9 @@ class LessonTabItem extends React.Component{
     render(){
 
         return(
-            <li className="list-inline-item">{this.props.lesson.title}
-            <button className="btn" type="button" onClick={()=> {
-                this.props.delete(this.props.lesson.id)
+            <li className="nav-item" style={{"color":"white"}}>{this.props.lesson.title}&nbsp;
+            <button className="btn btn-dark" type="button" onClick={()=> {
+                if (window.confirm("Are you sure?")) this.props.delete(this.props.lesson.id)
             }}><i className="fa fa-times" style={{color:"red"}}></i>
                 </button>
             </li>

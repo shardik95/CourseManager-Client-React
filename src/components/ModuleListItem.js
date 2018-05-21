@@ -17,7 +17,7 @@ class ModuleListItem extends React.Component{
                 </td>
                 <td><span className="float-right">
                    <button type="button" className="btn" onClick={() =>{
-                       this.props.delete(this.props.module.id)
+                       if (window.confirm("Are you sure?"))  this.props.delete(this.props.module.id)
                    }}><i className="fa fa-2x fa-times" style={{color:"red"}}></i></button>
                 </span></td>
             </tr>
