@@ -89,7 +89,7 @@ class ModuleList extends React.Component{
 
         return(
             <div>
-            <table className="table table-hover">
+            <table className="table table-hover ">
                 <tbody>
                 <tr>
                     <td><input type="text" className="form-control" placeholder="Module 1" onChange={this.titleChanged}></input></td>

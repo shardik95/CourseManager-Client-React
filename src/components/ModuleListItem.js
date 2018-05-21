@@ -11,7 +11,7 @@ class ModuleListItem extends React.Component{
     render(){
         return(
             <tr><td>
-                <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>
+                <Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`} style={{ color: '#000' }}>
                 {this.props.module.title}
                 </Link>
                 </td>
