@@ -69,11 +69,21 @@ class LessonTabs extends React.Component{
     }
 
     createLesson(){
-    console.log("button clicked")
-        return this.LessonServiceClient.createLesson(this.state.courseId,this.state.moduleId,this.state.lesson)
-            .then(()=>{
-                return this.findAllLessonsForCourse(this.state.courseId,this.state.moduleId);
-            })
+        if(this.state.lesson.title==""){
+            var lesson={
+                title:"New Lesson"
+            };
+            return this.LessonServiceClient.createLesson(this.state.courseId, this.state.moduleId,lesson)
+                .then(() => {
+                    return this.findAllLessonsForCourse(this.state.courseId, this.state.moduleId);
+                })
+        }
+        else {
+            return this.LessonServiceClient.createLesson(this.state.courseId, this.state.moduleId, this.state.lesson)
+                .then(() => {
+                    return this.findAllLessonsForCourse(this.state.courseId, this.state.moduleId);
+                })
+        }
     }
 
     render(){

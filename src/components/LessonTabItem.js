@@ -26,7 +26,10 @@ class LessonTabItem extends React.Component{
                 <Modal open={open} onClose={this.onCloseModal} center>
                     <br/>
                     <br/>
-                    Are you sure?<br/><br/>
+                    <div className="container-fluid ">
+                        Are you sure you want to delete?
+                    </div>
+                        <br/><br/>
                     <button type="button" className="btn btn-danger float-right"
                             onClick={() =>{
                                 this.props.delete(this.props.lesson.id)}}>
