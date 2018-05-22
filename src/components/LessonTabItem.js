@@ -1,10 +1,19 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
+import {BrowserRouter as Router,Link,Route} from 'react-router-dom'
 
 class LessonTabItem extends React.Component{
 
     constructor(props){
         super(props);
+        this.state={
+            courseId:"",
+            moduleId:"",
+            lessonId:""
+        }
+        this.setCourseId=this.setCourseId.bind(this);
+        this.setModuleId=this.setModuleId.bind(this);
+        this.setLessonId=this.setLessonId.bind(this);
     }
 
     state = {
@@ -18,6 +27,31 @@ class LessonTabItem extends React.Component{
     onCloseModal = () => {
         this.setState({ open: false });
     };
+
+    componentDidMount(){
+        this.setCourseId(this.props.courseId);
+        this.setModuleId(this.props.moduleId);
+        this.setLessonId(this.props.lesson.id);
+    }
+
+    componentWillReceiveProps(newProps){
+        this.setCourseId(newProps.courseId);
+        this.setModuleId(newProps.moduleId);
+        this.setLessonId(newProps.lesson.id);
+    }
+
+    setCourseId(courseId){
+        this.setState({courseId:courseId});
+    }
+
+    setModuleId(moduleId){
+        this.setState({moduleId:moduleId});
+    }
+
+    setLessonId(lessonId){
+        this.setState({lessonId:lessonId});
+    }
+
 
     render(){
         const { open } = this.state;
@@ -41,7 +75,7 @@ class LessonTabItem extends React.Component{
                         Cancel
                     </button>
                 </Modal>
-                {this.props.lesson.title}&nbsp;
+                <Link to={`/course/${this.state.courseId}/module/${this.state.moduleId}/lesson/${this.state.lessonId}`}>{this.props.lesson.title}</Link>&nbsp;
                 <button className="btn btn-dark" type="button" onClick={this.onOpenModal}>
                     <i className="fa fa-times" style={{color:"white"}}></i>
                 </button>

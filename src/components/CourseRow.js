@@ -49,7 +49,8 @@ class CourseRow extends React.Component{
                 </td>
                 <td>Me</td>
                 <td>{this.props.course.modified}</td>
-                <td><button type="button" className="btn" onClick={this.onOpenModal}><i className="fa fa-2x fa-times" style={{color:"red"}}></i></button>
+                <td><button type="button" className="btn" onClick={this.onOpenModal}
+                style={{background:"transparent"}}><i className="fa fa-2x fa-times" style={{color:"red"}}></i></button>
                 </td>
             </tr>
         );
