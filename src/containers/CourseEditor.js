@@ -47,7 +47,9 @@ class CourseEditor extends React.Component{
     render(){
         return (
             <div>
-                <h1>{this.state.course.title}</h1>
+                <nav className="navbar navbar-light bg-dark">
+                    <span className="navbar-brand mb-0 h1" style={{color:"white"}}>{this.state.course.title}</span>
+                </nav>
                 <div>
                     <div>
                         <div>

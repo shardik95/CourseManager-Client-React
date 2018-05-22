@@ -88,21 +88,18 @@ class ModuleList extends React.Component{
 
         return(
             <div>
-                <table className="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" className="form-control" placeholder="Module 1" onChange={this.titleChanged}></input>
-                            </td>
-                            <td>
-                                <button className="btn "><i className="fa fa-2x fa-plus" onClick={this.createModule}></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div className="list-group" id="list-tab" role="tablist">
-                    <ul className="list-inline">
-
+                <div id="list-tab" role="tablist">
+                    <ul className="list-group">
+                                <li className="container-fluid" style={{background:"#343a40",padding:"20px 30px"}}>
+                                <div className="row">
+                                    <div className="col-10" >
+                                        <input type="text" className="form-control" placeholder="Module 1" onChange={this.titleChanged}></input>
+                                    </div>
+                                    <div className="col-2">
+                                        <button className="btn float-right" style={{background:"transparent"}}><i className="fa fa-lg fa-plus" style={{color:"white"}} onClick={this.createModule}></i></button>
+                                    </div>
+                                </div>
+                            </li>
                         {this.renderModules()}
                     </ul>
                 </div>

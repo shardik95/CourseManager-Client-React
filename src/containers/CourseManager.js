@@ -10,14 +10,14 @@ class CourseManager extends Component{
     render(){
         return(
             <Router>
-                <div className="container-fluid">
+                <div>
                         <div>
                             <Route path="/courses" component={CourseList}></Route>
                                 <div className="row">
-                                    <div className="col-4">
+                                    <div className="col-4" style={{paddingRight:"0px"}}>
                                         <Route path='/course/:courseId' component={CourseEditor}></Route>
                                     </div>
-                                    <div className="col-8">
+                                    <div className="col-8" style={{paddingLeft:"0px"}}>
                                         <Route path='/course/:courseId/module/:moduleId' component={ModuleEditor}></Route>
                                     </div>
                                 </div>

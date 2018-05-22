@@ -80,7 +80,7 @@ class LessonTabs extends React.Component{
         return(
             <div className="row">
                 <div className="container-fluid">
-                    <nav className="navbar navbar-dark bg-dark navbar-expand ">
+                    <nav className="navbar navbar-dark bg-dark navbar-expand" style={{height:"56px",paddingRight:"0px"}}>
                          <ul className="navbar-nav">
                             {this.renderLessons()}
                              <li className="nav-item"><input type="text" placeholder="Lesson 1"
