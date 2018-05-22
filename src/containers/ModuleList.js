@@ -1,7 +1,6 @@
 import React from 'react';
 import ModuleService from "../services/ModuleService";
 import ModuleListItem from "../components/ModuleListItem";
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class ModuleList extends React.Component{
 
@@ -83,25 +82,30 @@ class ModuleList extends React.Component{
         }
 
     }
-
+/**/
 
     render(){
 
         return(
             <div>
-            <table className="table table-hover ">
-                <tbody>
-                <tr>
-                    <td><input type="text" className="form-control" placeholder="Module 1" onChange={this.titleChanged}></input></td>
-                    <td><span className="float-right"><button className="btn "><i className="fa fa-2x fa-plus" onClick={this.createModule}></i></button></span></td>
-                </tr>
-                {this.renderModules()}
-                </tbody>
-            </table>
-                <BootstrapTable data={this.state.modules} selectRow={ selectRowProp } striped hover version='4'>
-                    <TableHeaderColumn isKey dataField='id' hidden={true}></TableHeaderColumn>
-                    <TableHeaderColumn dataField='title'>Module</TableHeaderColumn>
-                </BootstrapTable>
+                <table className="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" className="form-control" placeholder="Module 1" onChange={this.titleChanged}></input>
+                            </td>
+                            <td>
+                                <button className="btn "><i className="fa fa-2x fa-plus" onClick={this.createModule}></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="list-group" id="list-tab" role="tablist">
+                    <ul className="list-inline">
+
+                        {this.renderModules()}
+                    </ul>
+                </div>
             </div>
 
         );
@@ -109,12 +113,6 @@ class ModuleList extends React.Component{
 
 }
 
-const selectRowProp = {
-    mode: 'radio',
-    bgColor: 'lightblue', // you should give a bgcolor, otherwise, you can't regonize which row has been selected
-    hideSelectColumn: true,  // enable hide selection column.
-    clickToSelect: true
-};
 
 
 export default ModuleList;

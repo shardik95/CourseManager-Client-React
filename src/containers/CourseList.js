@@ -114,14 +114,13 @@ class CourseList extends React.Component{
     render(){
         return(
             <div>
-                <h1>Course Manager</h1>
-                <table className="table table-hover">
+                <table className="table table-hover table-striped ">
                     <thead>
                         <tr style={{background:'#4286f4'}}>
-                            <th style={{color:"white"}}><h4>Add Course</h4></th>
-                            <td colSpan="2"><input className="form-control" placeholder="CS1111" onChange={this.titleChanged}/></td>
+                            <th style={{color:"white"}}><h4>Course Manager</h4></th>
+                            <td colSpan="2"><input className="form-control" placeholder="Course Title" onChange={this.titleChanged}/></td>
                             <th><button className="btn" style={{background:"#4286f4"}}><i className="fa fa-2x fa-plus" onClick={this.createCourse}
-                                                           style={{color:"green"}}></i></button>
+                                                           style={{color:"white"}}></i></button>
                             </th>
                         </tr>
                         <tr>

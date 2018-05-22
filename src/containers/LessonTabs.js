@@ -69,6 +69,7 @@ class LessonTabs extends React.Component{
     }
 
     createLesson(){
+    console.log("button clicked")
         return this.LessonServiceClient.createLesson(this.state.courseId,this.state.moduleId,this.state.lesson)
             .then(()=>{
                 return this.findAllLessonsForCourse(this.state.courseId,this.state.moduleId);
@@ -78,21 +79,15 @@ class LessonTabs extends React.Component{
     render(){
         return(
             <div className="row">
-                <div>
-                <nav className="navbar navbar-dark bg-dark navbar-expand ">
-                 <ul className="navbar-nav">
-                    {this.renderLessons()}
-                    </ul>
-                </nav>
-                </div>
-                <div>
+                <div className="container-fluid">
                     <nav className="navbar navbar-dark bg-dark navbar-expand ">
-                        <ul className="navbar-nav">
-                        <li className="nav-item"><input type="text" placeholder="Lesson 1"
-                                                        className="form-control navbar-right" onChange={this.titleChanged}/></li>
-                        &nbsp;
-                        <li className="nav-item"><button className="btn btn-dark navbar-right"><i className="fa fa-plus" onClick={this.createLesson}></i></button></li>
-                    </ul>
+                         <ul className="navbar-nav">
+                            {this.renderLessons()}
+                             <li className="nav-item"><input type="text" placeholder="Lesson 1"
+                                                             className="form-control navbar-right" onChange={this.titleChanged}/></li>
+                             &nbsp;
+                             <li className="nav-item"><button className="btn btn-dark navbar-right" type="button" onClick={this.createLesson}><i className="fa fa-plus" ></i></button></li>
+                         </ul>
                     </nav>
                 </div>
             </div>
