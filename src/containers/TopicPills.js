@@ -96,16 +96,16 @@ class TopicPills extends React.Component{
 
     render(){
         return(
-            <ul className="nav nav-pills nav-justified nav-fill">
+            <ul className="nav nav-pills flex-column flex-sm-row">
                 {this.renderTopics()}
-                <li className="nav-item list-group-item">
+                <li className="nav-item" style={{marginLeft:"5px"}}>
                     <div className="row">
-                        <div className="col-9">
+                        <div className="col-10" style={{paddingRight:"0px"}}>
                             <input type="text" placeholder="Topic 1" className="form-control navbar-right" onChange={this.titleChanged}/>
                         </div>
-                        <div className="col-3">
-                            <button className="btn btn-dark navbar-right" type="button" onClick={this.createTopic}>
-                                <i className="fa fa-plus" ></i></button>
+                        <div className="col-2" style={{paddingLeft:"0px"}}>
+                            <button className="btn" type="button" onClick={this.createTopic}>
+                                <i className="fa fa-lg fa-plus"></i></button>
                         </div>
                     </div>
                 </li>

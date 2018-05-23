@@ -82,7 +82,6 @@ class ModuleList extends React.Component{
         }
 
     }
-/**/
 
     render(){
 

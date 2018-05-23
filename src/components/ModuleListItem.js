@@ -30,7 +30,7 @@ class ModuleListItem extends React.Component{
                     <Modal open={open} onClose={this.onCloseModal} center>
                         <br/>
                         <br/>
-                        Are you sure?<br/><br/>
+                        Are you sure you want to delete?<br/><br/>
                         <button type="button" className="btn btn-danger float-right"
                                 onClick={() =>{
                                     this.props.delete(this.props.module.id)}}>
