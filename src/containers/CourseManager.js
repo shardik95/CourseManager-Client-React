@@ -21,7 +21,7 @@ class CourseManager extends Component{
                                     <div className="col-8" style={{paddingLeft:"0px"}}>
                                         <div>
                                              <Route path='/course/:courseId/module/:moduleId' component={ModuleEditor}></Route>
-                                            <div>
+                                            <div style={{margin:"5px"}}>
                                              <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId" component={LessonEditor}></Route>
                                             </div>
                                         </div>
