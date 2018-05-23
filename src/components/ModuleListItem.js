@@ -59,7 +59,7 @@ class ModuleListItem extends React.Component{
     }
 }
 
-let style={
+const style={
     fontWeight: 'bold',
     background: 'grey',
 };

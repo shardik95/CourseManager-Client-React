@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
-import {BrowserRouter as Router,Link,Route} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 class LessonTabItem extends React.Component{
 
@@ -75,15 +75,34 @@ class LessonTabItem extends React.Component{
                         Cancel
                     </button>
                 </Modal>
-                <Link to={`/course/${this.state.courseId}/module/${this.state.moduleId}/lesson/${this.state.lessonId}`}>{this.props.lesson.title}</Link>&nbsp;
-                <button className="btn btn-dark" type="button" onClick={this.onOpenModal}>
-                    <i className="fa fa-times" style={{color:"white"}}></i>
-                </button>
+                <div className="container">
+                    <NavLink to={`/course/${this.state.courseId}/module/${this.state.moduleId}/lesson/${this.state.lessonId}`}
+                             style={{ color: '#000',textDecoration:"none",display:"block",padding:"10px",color:"white"}}
+                             activeStyle={style}>
+                        <div className="row">
+                            <div className="col-9">
+                            {this.props.lesson.title}
+                            </div>
+                            <div className="col-3">
+                            <button className="btn float-right" type="button" onClick={this.onOpenModal}
+                                    style={{padding:"0px",background:"transparent"}}>
+                                <i className="fa fa-times" style={{color:"white"}}></i>
+                            </button>
+                            </div>
+                        </div>
+                    </NavLink>
+                </div>
+
             </li>
         );
 
     }
 
 }
+
+const style={
+    fontWeight: 'bold',
+    background: 'grey',
+};
 
 export default LessonTabItem;
