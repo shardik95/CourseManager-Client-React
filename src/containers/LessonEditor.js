@@ -1,5 +1,9 @@
 import React from 'react';
 import TopicPills from "./TopicPills";
+import {BrowserRouter as Router,Link,Route}
+    from 'react-router-dom'
+import CourseEditor from "./CourseEditor";
+import TopicEditor from "./TopicEditor";
 
 
 class LessonEditor extends React.Component{
@@ -42,7 +46,10 @@ class LessonEditor extends React.Component{
 
     render(){
         return(
-            <TopicPills courseId={this.state.courseId} moduleId={this.state.moduleId} lessonId={this.state.lessonId}/>
+            <div>
+                <TopicPills courseId={this.state.courseId} moduleId={this.state.moduleId} lessonId={this.state.lessonId}/>
+                <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId/topic/:topicId" component={TopicEditor}></Route>
+            </div>
         );
     }
 }

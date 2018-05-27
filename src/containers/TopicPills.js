@@ -65,7 +65,8 @@ class TopicPills extends React.Component{
 
     renderTopics(){
         return this.state.topics.map((topic)=>{
-            return <TopicPillItem topic={topic} key={topic.id} delete={this.deleteTopic}/>
+            return <TopicPillItem topic={topic} key={topic.id} delete={this.deleteTopic} courseid={this.state.courseId}
+            lessonid={this.state.lessonId} moduleid={this.state.moduleId}/>
         })
     }
 

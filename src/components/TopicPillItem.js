@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
+import { NavLink } from 'react-router-dom'
 
 class TopicPillItem extends React.Component{
 
@@ -23,7 +24,7 @@ class TopicPillItem extends React.Component{
     render(){
         const { open } = this.state;
         return(
-            <li className="nav-item" style={{background:"grey",color:"white",marginLeft:"5px",paddingLeft:"10px"}}>
+            <li className="nav-item" style={{background:"grey",color:"white",marginLeft:"5px"}}>
                 <Modal open={open} onClose={this.onCloseModal} center>
                     <br/>
                     <br/>
@@ -39,14 +40,22 @@ class TopicPillItem extends React.Component{
                         Cancel
                     </button>
                 </Modal>
+                <NavLink to={`/course/${this.props.courseid}/module/${this.props.moduleid}/lesson/${this.props.lessonid}/topic/${this.props.topic.id}`}
+                         style={{ color: '#000',textDecoration:"none",paddingLeft:"10px",display:"block",color:"white"}}
+                         activeStyle={style}>
                 {this.props.topic.title}
                 <button className="btn" type="button" style={{background:"transparent"}} onClick={this.onOpenModal}>
                     <i className="fa fa-times" style={{color:"white"}}></i>
                 </button>
+                </NavLink>
             </li>
         );
     }
 
 }
+
+const style={
+    background: '#343a40',
+};
 
 export default TopicPillItem;
