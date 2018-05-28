@@ -70,12 +70,43 @@ const Heading = ({widget,preview,dispatch}) => {
     )
 }
 
-const Link = () =>(
-    <h1>Link</h1>
-)
-
+const Link = ({widget,preview,dispatch}) =>{
+    let widgetName;
+    let urlName;
+    let urlText;
+    return(
+        <div>
+            <div hidden={preview}>
+                <input type="text" placeholder="Link Url" onChange={()=>dispatch(
+                    {
+                        type:'LINK_URL',
+                        id:widget.id,
+                        linkUrl:urlName.value
+                    }
+                )} ref={node=>urlName=node} /><br/>
+                <input type="text" placeholder="Link Text"  onChange={()=>dispatch(
+                    {
+                        type:'LINK_TEXT',
+                        id:widget.id,
+                        linkText:urlText.value
+                    }
+                )} ref={node=>urlText=node}/><br/>
+                <input placeholder="Widget Name" type="text"  onChange={()=>dispatch(
+                    {
+                        type:'WIDGET_NAME',
+                        id:widget.id,
+                        widgetName:widgetName.value
+                    }
+                )}ref={node=>widgetName=node}/>
+            <br/>
+            </div>
+            {widget.widgetType==='Link' && <a href={widget.linkUrl}>{widget.linkText}</a>}
+        </div>
+    )
+}
 const HeadingContainer = connect()(Heading);
 const ParagraphContainer = connect()(Paragraph);
+const LinkContainer = connect()(Link);
 
 export const Widget = ({widget,topicId,preview,dispatch}) => {
     let selectElem
@@ -105,7 +136,7 @@ export const Widget = ({widget,topicId,preview,dispatch}) => {
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='List' && <List/>}
             {widget.widgetType==='Image' && <Image/>}
-            {widget.widgetType==='Link' && <Link/>}
+            {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
     </li>
     )
 }
