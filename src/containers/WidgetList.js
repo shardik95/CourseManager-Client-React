@@ -1,12 +1,30 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const Paragraph = ()=>(
-    <div>
-        <h1>Paragraph</h1>
-        <textarea></textarea>
-    </div>
-)
+const Paragraph = ({widget,preview,dispatch})=> {
+
+    let textareaElem;
+    let widgetName;
+    return (
+        <div>
+            <div hidden={preview}>
+                <textarea onChange={()=>dispatch({
+                    type:'PARAGRAPH_TEXT',
+                    id:widget.id,
+                    paragraphText:textareaElem.value
+                })} ref={node=>textareaElem=node} value={widget.paragraphText}/><br/>
+                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
+                    {
+                        type:'WIDGET_NAME',
+                        id:widget.id,
+                        widgetName:widgetName.value
+                    }
+                )} value={widget.widgetName}/>
+            </div>
+            {widget.widgetType==='Paragraph'&&<p>{widget.paragraphText}</p>}
+        </div>
+
+    )}
 
 const List = ()=>(
     <h1>List</h1>
@@ -43,7 +61,7 @@ const Heading = ({widget,preview,dispatch}) => {
                         id:widget.id,
                         widgetName:widgetName.value
                     }
-                )}/>
+                )} value={widget.widgetName}/>
             </div>
             {widget.size==1 && <h1>{widget.text}</h1>}
             {widget.size==2 && <h2>{widget.text}</h2>}
@@ -57,13 +75,15 @@ const Link = () =>(
 )
 
 const HeadingContainer = connect()(Heading);
+const ParagraphContainer = connect()(Paragraph);
 
 export const Widget = ({widget,topicId,preview,dispatch}) => {
     let selectElem
     return (
         <li>
             <div hidden={preview}>
-                {widget.widgetType}
+                <h1>{widget.widgetType}</h1>
+                <br/>
                 <select value={widget.widgetType} onChange={()=>dispatch({
                     type:'SELECT_WIDGET',
                     id:widget.id,
@@ -82,7 +102,7 @@ export const Widget = ({widget,topicId,preview,dispatch}) => {
                 </button>
             </div>
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
-            {widget.widgetType==='Paragraph' && <Paragraph/>}
+            {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='List' && <List/>}
             {widget.widgetType==='Image' && <Image/>}
             {widget.widgetType==='Link' && <Link/>}

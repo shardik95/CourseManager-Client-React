@@ -70,6 +70,15 @@ const WidgetReducer = (state={
     widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
 
+        case 'PARAGRAPH_TEXT':return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.paragraphText=action.paragraphText
+                }
+                return Object.assign({},widget);
+            })
+        }
+
         case 'PREVIEW':return{
             widgets:state.widgets,
             topicId:action.topicId,
@@ -124,7 +133,6 @@ const WidgetReducer = (state={
         case 'ADD':return {
             widgets:[...state.widgets,
                 {
-                    text:'',
                     topicId:action.topicId,
                     id:state.widgets.length+1,
                     widgetType:'Heading',
