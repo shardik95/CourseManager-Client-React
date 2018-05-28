@@ -19,13 +19,14 @@ const Image = () =>(
 const Heading = ({widget,dispatch}) => {
     let inputElem;
     let selectElem;
+    let widgetName;
     return(
         <div>
             <input ref={node=>inputElem=node} onChange={()=>dispatch({
                 type:'HEADING_TEXT',
                 id:widget.id,
                 text:inputElem.value
-            })} value={widget.text} type="text"/>
+            })} value={widget.text} type="text" placeholder="Heading text"/>
             <select onChange={()=>dispatch({
                 type:'HEADING_SIZE',
                 id:widget.id,
@@ -35,6 +36,13 @@ const Heading = ({widget,dispatch}) => {
                 <option value="2">Heading 2</option>
                 <option value="3">Heading 3</option>
             </select>
+            <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
+                {
+                    type:'WIDGET_NAME',
+                    id:widget.id,
+                    widgetName:widgetName.value
+                }
+            )}/>
             {widget.size==1 && <h1>{widget.text}</h1>}
             {widget.size==2 && <h2>{widget.text}</h2>}
             {widget.size==3 && <h3>{widget.text}</h3>}

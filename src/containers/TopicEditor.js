@@ -58,7 +58,7 @@ class TopicEditor extends React.Component{
             <Provider store={store}>
                 <WidgetContainer courseId={this.state.courseId}
                 moduleId={this.state.moduleId}
-                lessonId={this.state.moduleId}
+                lessonId={this.state.lessonId}
                 topicId={this.state.topicId}
                 />
             </Provider>
@@ -69,6 +69,15 @@ class TopicEditor extends React.Component{
 const WidgetReducer = (state={
     widgets:[],topicId:""}, action)=>{
     switch (action.type){
+
+        case 'WIDGET_NAME': return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.widgetName=action.widgetName
+                }
+                return Object.assign({},widget);
+            })
+        }
 
         case 'HEADING_SIZE':return {
             widgets:state.widgets.map(widget => {
@@ -109,11 +118,12 @@ const WidgetReducer = (state={
         case 'ADD':return {
             widgets:[...state.widgets,
                 {
-                    text:'New Widget',
+                    text:'',
                     topicId:action.topicId,
                     id:state.widgets.length+1,
-                    widgetType:'Paragraph',
-                    size:'2'
+                    widgetType:'Heading',
+                    size:'1',
+                    widgetName:''
                 }
             ],
             topicId:action.topicId
