@@ -1,13 +1,81 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-export const Widget = ({widget,topicId,dispatch}) =>(
-    <li>{widget.text}
-        <button onClick={()=>{
-            dispatch({type:'DELETE',widgetId:widget.id,topicId:topicId})
-        }}>Delete Widget</button>
-    </li>
+const Paragraph = ()=>(
+    <div>
+        <h1>Paragraph</h1>
+        <textarea></textarea>
+    </div>
 )
+
+const List = ()=>(
+    <h1>List</h1>
+)
+
+const Image = () =>(
+    <h1>Image</h1>
+)
+
+const Heading = ({widget,dispatch}) => {
+    let inputElem;
+    let selectElem;
+    return(
+        <div>
+            <input ref={node=>inputElem=node} onChange={()=>dispatch({
+                type:'HEADING_TEXT',
+                id:widget.id,
+                text:inputElem.value
+            })} value={widget.text} type="text"/>
+            <select onChange={()=>dispatch({
+                type:'HEADING_SIZE',
+                id:widget.id,
+                size:selectElem.value
+            })} ref={node=>selectElem=node} value={widget.size}>
+                <option value="1">Heading 1</option>
+                <option value="2">Heading 2</option>
+                <option value="3">Heading 3</option>
+            </select>
+            {widget.size==1 && <h1>{widget.text}</h1>}
+            {widget.size==2 && <h2>{widget.text}</h2>}
+            {widget.size==3 && <h3>{widget.text}</h3>}
+        </div>
+    )
+}
+
+const Link = () =>(
+    <h1>Link</h1>
+)
+
+const HeadingContainer = connect()(Heading);
+
+export const Widget = ({widget,topicId,dispatch}) => {
+    let selectElem
+    return (
+        <li>{widget.widgetType}
+            <select value={widget.widgetType} onChange={()=>dispatch({
+                type:'SELECT_WIDGET',
+                id:widget.id,
+                topicId:topicId,
+                widgetType:selectElem.value
+            })} ref={node=>selectElem=node}>
+                        <option>Heading</option>
+                        <option>Paragraph</option>
+                        <option>List</option>
+                        <option>Image</option>
+                        <option>Link</option>
+            </select>
+            <button onClick={() => {
+                dispatch({type: 'DELETE', id: widget.id, topicId: topicId})
+            }}>Delete Widget
+            </button>
+            {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
+            {widget.widgetType==='Paragraph' && <Paragraph/>}
+            {widget.widgetType==='List' && <List/>}
+            {widget.widgetType==='Image' && <Image/>}
+            {widget.widgetType==='Link' && <Link/>}
+    </li>
+    )
+}
 
 const WidgetCont= connect()(Widget);
 

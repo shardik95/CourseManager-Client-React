@@ -56,7 +56,6 @@ class TopicEditor extends React.Component{
 
         return(
             <Provider store={store}>
-
                 <WidgetContainer courseId={this.state.courseId}
                 moduleId={this.state.moduleId}
                 lessonId={this.state.moduleId}
@@ -71,6 +70,36 @@ const WidgetReducer = (state={
     widgets:[],topicId:""}, action)=>{
     switch (action.type){
 
+        case 'HEADING_SIZE':return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.size=action.size
+                }
+                return Object.assign({},widget);
+            })
+        }
+
+        case 'HEADING_TEXT':
+            return {
+                widgets:state.widgets.map(widget => {
+                    if (widget.id===action.id){
+                        widget.text=action.text
+                    }
+                    return Object.assign({},widget);
+                })
+            }
+
+        case 'SELECT_WIDGET':
+            let newState={
+            widgets:state.widgets.filter(widget=>{
+                if(widget.id===action.id) {
+                    widget.widgetType = action.widgetType;
+                }
+                return true;
+            })}
+            return JSON.parse(JSON.stringify(newState));
+
+
         case 'FIND_WIDGETS_TOPIC':return{
             widgets:action.widgets,
             topicId:action.topicId
@@ -82,7 +111,9 @@ const WidgetReducer = (state={
                 {
                     text:'New Widget',
                     topicId:action.topicId,
-                    widgetId:state.widgets.length+1
+                    id:state.widgets.length+1,
+                    widgetType:'Paragraph',
+                    size:'2'
                 }
             ],
             topicId:action.topicId
@@ -90,7 +121,7 @@ const WidgetReducer = (state={
 
         case 'DELETE': return {
             widgets: state.widgets.filter(widget=>(
-                widget.id !== action.widgetId
+                widget.id !== action.id
             )),
             topicId:action.topicId
         }
