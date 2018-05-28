@@ -67,8 +67,14 @@ class TopicEditor extends React.Component{
 }
 
 const WidgetReducer = (state={
-    widgets:[],topicId:""}, action)=>{
+    widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
+
+        case 'PREVIEW':return{
+            widgets:state.widgets,
+            topicId:action.topicId,
+            preview: !action.preview
+        }
 
         case 'WIDGET_NAME': return {
             widgets:state.widgets.map(widget => {
