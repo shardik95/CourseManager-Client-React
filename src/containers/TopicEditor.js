@@ -70,12 +70,20 @@ const WidgetReducer = (state={
     widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
 
+        case 'IMAGE_URL':return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.imageUrl=action.imageUrl
+                }
+                return Object.assign({},widget);
+            })
+        }
+
+
         case 'LINK_URL':return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
-                    console.log(action.linkUrl)
                     widget.linkUrl=action.linkUrl
-                    widget.size=null
                 }
                 return Object.assign({},widget);
             })
@@ -84,7 +92,6 @@ const WidgetReducer = (state={
         case 'LINK_TEXT':return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
-                    console.log(action.linkText)
                     widget.linkText=action.linkText
                 }
                 return Object.assign({},widget);

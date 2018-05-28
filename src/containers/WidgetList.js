@@ -30,9 +30,32 @@ const List = ()=>(
     <h1>List</h1>
 )
 
-const Image = () =>(
-    <h1>Image</h1>
-)
+const Image = ({widget,preview,dispatch}) =>{
+    let imageUrlElem;
+    let widgetName;
+    return (
+        <div>
+            <div hidden={preview}>
+                <input type="text" placeholder="Link Url" onChange={()=>dispatch(
+                    {
+                        type:'IMAGE_URL',
+                        id:widget.id,
+                        imageUrl:imageUrlElem.value
+                    }
+                )} ref={node=>imageUrlElem=node} /><br/>
+                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
+                    {
+                        type:'WIDGET_NAME',
+                        id:widget.id,
+                        widgetName:widgetName.value
+                    }
+                )} value={widget.widgetName}/><br/>
+            </div>
+            {widget.widgetType==='Image'&&<img src={widget.imageUrl} style={{width:"300px",height:"200px"}}/>}
+        </div>
+
+    )
+}
 
 const Heading = ({widget,preview,dispatch}) => {
     let inputElem;
@@ -107,6 +130,7 @@ const Link = ({widget,preview,dispatch}) =>{
 const HeadingContainer = connect()(Heading);
 const ParagraphContainer = connect()(Paragraph);
 const LinkContainer = connect()(Link);
+const ImageContainer= connect()(Image);
 
 export const Widget = ({widget,topicId,preview,dispatch}) => {
     let selectElem
@@ -135,7 +159,7 @@ export const Widget = ({widget,topicId,preview,dispatch}) => {
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='List' && <List/>}
-            {widget.widgetType==='Image' && <Image/>}
+            {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
     </li>
     )
