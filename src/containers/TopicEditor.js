@@ -50,8 +50,6 @@ class TopicEditor extends React.Component{
         this.setState({lessonId:lessonId})
     }
 
-
-
     render(){
 
         return(
@@ -69,6 +67,24 @@ class TopicEditor extends React.Component{
 const WidgetReducer = (state={
     widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
+
+        case 'LIST_TYPE':return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.listType=action.listType
+                }
+                return Object.assign({},widget);
+            })
+        }
+
+        case 'LIST_TEXT':return {
+            widgets:state.widgets.map(widget => {
+                if (widget.id===action.id){
+                    widget.listText=action.listText
+                }
+                return Object.assign({},widget);
+            })
+        }
 
         case 'IMAGE_URL':return {
             widgets:state.widgets.map(widget => {

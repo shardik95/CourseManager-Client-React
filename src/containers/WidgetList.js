@@ -26,9 +26,68 @@ const Paragraph = ({widget,preview,dispatch})=> {
 
     )}
 
-const List = ()=>(
-    <h1>List</h1>
-)
+const List = ({widget,preview,dispatch})=>{
+    let listtext;
+    let listType;
+    let widgetName;
+    return (
+        <div>
+            <div hidden={preview}>
+                <textarea onChange={()=>dispatch({
+                    type:'LIST_TEXT',
+                    id:widget.id,
+                    listText:listtext.value
+                })} ref={node=>listtext=node} value={widget.listText} placeholder="Put each item in a separate row"/><br/>
+                <select ref={node=>listType=node} value={widget.listType} onChange={()=>dispatch({
+                    type:'LIST_TYPE',
+                    id:widget.id,
+                    listType:listType.value
+                })}>
+                    <option>Ordered List</option>
+                    <option>Unordered List</option>
+                </select>
+                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
+                    {
+                        type:'WIDGET_NAME',
+                        id:widget.id,
+                        widgetName:widgetName.value
+                    }
+                )} value={widget.widgetName}/><br/>
+            </div>
+            {widget.listType==='Ordered List' && <OrderedList key={widget.id} list={widget.listText}/>}
+            {widget.listType==='Unordered List' && <UnorderedList key={widget.id} list={widget.listText}/>}
+        </div>
+    )
+
+}
+
+const UnorderedList = ({list})=>{
+    let i=0;
+    return (
+        <div>
+            <ul>
+                {list.split("\n").map((listitem)=>(
+                    <li key={i=i+1}>{listitem}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
+
+
+const OrderedList = ({list})=>{
+    let i=0;
+    return (
+        <div>
+            <ol>
+                {list.split("\n").map((listitem)=>(
+                    <li key={i=i+1}>{listitem}</li>
+                ))}
+            </ol>
+        </div>
+    )
+}
 
 const Image = ({widget,preview,dispatch}) =>{
     let imageUrlElem;
@@ -131,6 +190,7 @@ const HeadingContainer = connect()(Heading);
 const ParagraphContainer = connect()(Paragraph);
 const LinkContainer = connect()(Link);
 const ImageContainer= connect()(Image);
+const ListContainer = connect()(List);
 
 export const Widget = ({widget,topicId,preview,dispatch}) => {
     let selectElem
@@ -158,7 +218,7 @@ export const Widget = ({widget,topicId,preview,dispatch}) => {
             </div>
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
-            {widget.widgetType==='List' && <List/>}
+            {widget.widgetType==='List' && <ListContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
     </li>
