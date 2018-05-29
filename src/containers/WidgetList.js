@@ -40,7 +40,7 @@ class WidgetList extends React.Component{
                             )
                         )}
                     </div>
-                    <button className="btn float-right" style={{background:'#ea2a2a',marginTop:"10px"}} onClick={()=>{this.props.add(this.props.topicId)}}><i className="fa fa-plus-circle"></i></button>
+                    <button hidden={this.props.previewMode} className="btn float-right" style={{background:'#ea2a2a',marginTop:"10px",marginBottom:"20px"}} onClick={()=>{this.props.add(this.props.topicId)}}><i className="fa fa-plus-circle"></i></button>
                 </div>
             </div>
         )

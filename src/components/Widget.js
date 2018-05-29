@@ -15,10 +15,10 @@ export const Widget = ({widget,topicId,preview,length,selectWidget,up,down,delet
         <div className="border" style={{marginBottom:"15px"}}>
             <div hidden={preview}>
 
-                <div className="float-right">
-                    <button className="btn" hidden={widget.orderWidget===1} onClick={()=>up(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
+                <div className="float-right" style={{padding:"7px"}}>
+                    <button className="btn" hidden={widget.orderWidget===1 || widget.orderWidget===0 } onClick={()=>up(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
                         <i className="fa fa-arrow-up"></i></button>&nbsp;
-                    <button className="btn" hidden={widget.orderWidget===length} onClick={()=>down(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
+                    <button className="btn" hidden={widget.orderWidget===length || widget.orderWidget===0} onClick={()=>down(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
                         <i className="fa fa-arrow-down"></i></button>
                     <select value={widget.widgetType} onChange={()=>selectWidget(widget.id,topicId,selectElem.value)} ref={node=>selectElem=node}
                     style={{marginRight:"8px",marginLeft:"8px"}}
