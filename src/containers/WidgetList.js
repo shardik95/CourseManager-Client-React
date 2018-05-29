@@ -101,7 +101,7 @@ const Image = ({widget,preview,dispatch}) =>{
                         id:widget.id,
                         imageUrl:imageUrlElem.value
                     }
-                )} ref={node=>imageUrlElem=node} /><br/>
+                )} ref={node=>imageUrlElem=node} value={widget.imageUrl}/><br/>
                 <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
                     {
                         type:'WIDGET_NAME',
@@ -165,21 +165,21 @@ const Link = ({widget,preview,dispatch}) =>{
                         id:widget.id,
                         linkUrl:urlName.value
                     }
-                )} ref={node=>urlName=node} /><br/>
+                )} ref={node=>urlName=node} value={widget.linkUrl} /><br/>
                 <input type="text" placeholder="Link Text"  onChange={()=>dispatch(
                     {
                         type:'LINK_TEXT',
                         id:widget.id,
                         linkText:urlText.value
                     }
-                )} ref={node=>urlText=node}/><br/>
-                <input placeholder="Widget Name" type="text"  onChange={()=>dispatch(
+                )} ref={node=>urlText=node} value={widget.linkText}/><br/>
+                <input placeholder="Widget Name" type="text" value={widget.linkText} onChange={()=>dispatch(
                     {
                         type:'WIDGET_NAME',
                         id:widget.id,
                         widgetName:widgetName.value
                     }
-                )}ref={node=>widgetName=node}/>
+                )}ref={node=>widgetName=node} value={widget.widgetName}/>
             <br/>
             </div>
             {widget.widgetType==='Link' && <a href={widget.linkUrl}>{widget.linkText}</a>}
@@ -192,7 +192,7 @@ const LinkContainer = connect()(Link);
 const ImageContainer= connect()(Image);
 const ListContainer = connect()(List);
 
-export const Widget = ({widget,topicId,preview,dispatch}) => {
+export const Widget = ({widget,topicId,preview,length,dispatch}) => {
     let selectElem
     return (
         <li>
@@ -212,9 +212,25 @@ export const Widget = ({widget,topicId,preview,dispatch}) => {
                             <option>Link</option>
                 </select>
                 <button onClick={() => {
-                    dispatch({type: 'DELETE', id: widget.id, topicId: topicId})
+                    dispatch({type: 'DELETE', id: widget.id, topicId: topicId,orderWidget:widget.orderWidget})
                 }}>Delete Widget
-                </button>
+                </button>&nbsp;
+                <button hidden={widget.orderWidget===1} onClick={()=>dispatch(
+                    {
+                        type:'UP',
+                        id:widget.id,
+                        topicId:topicId,
+                        orderWidget:widget.orderWidget
+                    }
+                )}>Up</button>&nbsp;
+                <button hidden={widget.orderWidget===length} onClick={()=>dispatch(
+                {
+                    type:'DOWN',
+                    id:widget.id,
+                    topicId:topicId,
+                    orderWidget:widget.orderWidget
+                }
+                )}>Down</button>
             </div>
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
@@ -254,7 +270,7 @@ class WidgetList extends React.Component{
                     {this.props.widgets.map(
                         widget => (
                             <div>
-                            <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode}/>
+                            <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode} length={this.props.widgets.length}/>
                             </div>
                         )
                     )}

@@ -64,9 +64,38 @@ class TopicEditor extends React.Component{
     }
 }
 
+function immutablySwapItems(items, firstIndex, secondIndex) {
+    // Constant reference - we can still modify the array itself
+    const results= items.slice();
+    const firstItem = items[firstIndex];
+    results[firstIndex] = items[secondIndex];
+    results[secondIndex] = firstItem;
+
+    return results;
+}
+
 const WidgetReducer = (state={
     widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
+
+        case 'UP':
+            let newarray=immutablySwapItems(state.widgets,action.orderWidget-1,action.orderWidget-2)
+            newarray[action.orderWidget-2].orderWidget=newarray[action.orderWidget-2].orderWidget-1
+            newarray[action.orderWidget-1].orderWidget=newarray[action.orderWidget-1].orderWidget+1
+            return{
+                widgets:newarray,
+                topicId:state.topicId,
+                preview:state.preview
+            }
+
+        case 'DOWN':let newarray2=immutablySwapItems(state.widgets,action.orderWidget-1,action.orderWidget)
+            newarray2[action.orderWidget].orderWidget=newarray2[action.orderWidget].orderWidget+1
+            newarray2[action.orderWidget-1].orderWidget=newarray2[action.orderWidget-1].orderWidget-1
+            return{
+                widgets:newarray2,
+                topicId:state.topicId,
+                preview:state.preview
+            }
 
         case 'LIST_TYPE':return {
             widgets:state.widgets.map(widget => {
@@ -181,7 +210,8 @@ const WidgetReducer = (state={
                     id:state.widgets.length+1,
                     widgetType:'Heading',
                     size:'1',
-                    widgetName:''
+                    widgetName:'',
+                    orderWidget:state.widgets.length+1
                 }
             ],
             topicId:action.topicId
@@ -190,7 +220,11 @@ const WidgetReducer = (state={
         case 'DELETE': return {
             widgets: state.widgets.filter(widget=>(
                 widget.id !== action.id
-            )),
+            )).map(widget=>{
+                if(widget.orderWidget>action.orderWidget)
+                    widget.orderWidget=widget.orderWidget-1
+                return widget;
+            }),
             topicId:action.topicId
         }
 
