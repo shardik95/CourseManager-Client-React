@@ -9,10 +9,14 @@ const Link = ({widget,preview,linktext,linkurl,widgetNamePlace}) =>{
     return(
         <div>
             <div hidden={preview}>
-                <input type="text" placeholder="Link Url" onChange={()=>linkurl(widget.id,urlName.value)} ref={node=>urlName=node} value={widget.linkUrl} /><br/>
-                <input type="text" placeholder="Link Text"  onChange={()=>linktext(widget.id,urlText.value)} ref={node=>urlText=node} value={widget.linkText}/><br/>
-                <input placeholder="Widget Name" type="text" value={widget.linkText}  onChange={()=>widgetNamePlace(widget.id,widgetName.value)} ref={node=>widgetName=node} value={widget.widgetName}/>
-                <br/>
+                <h1>{widget.widgetType}</h1>
+                <div className="form-group">
+                    <input className="form-control" type="text" placeholder="Link Url" onChange={()=>linkurl(widget.id,urlName.value)} ref={node=>urlName=node} value={widget.linkUrl} /><br/>
+                    <input className="form-control" type="text" placeholder="Link Text"  onChange={()=>linktext(widget.id,urlText.value)} ref={node=>urlText=node} value={widget.linkText}/><br/>
+                    <input className="form-control" placeholder="Widget Name" type="text" value={widget.linkText}  onChange={()=>widgetNamePlace(widget.id,widgetName.value)} ref={node=>widgetName=node} value={widget.widgetName}/>
+                    <br/>
+                </div>
+                <h4>Preview</h4>
             </div>
             {widget.widgetType==='Link' && <a href={widget.linkUrl}>{widget.linkText}</a>}
         </div>

@@ -9,8 +9,12 @@ const Paragraph = ({widget,preview,paragraphtext,widgetNamePlace})=> {
     return (
         <div>
             <div hidden={preview}>
-                <textarea onChange={()=>paragraphtext(widget.id,textareaElem.value)} ref={node=>textareaElem=node} value={widget.paragraphText}/><br/>
-                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/>
+                <h1>{widget.widgetType}</h1>
+                <div className="form-group">
+                    <textarea className="form-control" onChange={()=>paragraphtext(widget.id,textareaElem.value)} ref={node=>textareaElem=node} value={widget.paragraphText}/><br/>
+                    <input className="form-control" placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/>
+                </div>
+                <h4>Preview</h4>
             </div>
             {widget.widgetType==='Paragraph'&&<p>{widget.paragraphText}</p>}
         </div>

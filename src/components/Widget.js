@@ -12,28 +12,33 @@ import {ImageContainer} from "./Image";
 export const Widget = ({widget,topicId,preview,length,selectWidget,up,down,deleteWidget}) => {
     let selectElem
     return (
-        <li>
+        <div className="border" style={{marginBottom:"15px"}}>
             <div hidden={preview}>
-                <h1>{widget.widgetType}</h1>
-                <br/>
-                <select value={widget.widgetType} onChange={()=>selectWidget(widget.id,topicId,selectElem.value)} ref={node=>selectElem=node}>
-                    <option>Heading</option>
-                    <option>Paragraph</option>
-                    <option>List</option>
-                    <option>Image</option>
-                    <option>Link</option>
-                </select>
-                <button onClick={()=>deleteWidget(widget.id,topicId,widget.orderWidget)}>Delete Widget
-                </button>&nbsp;
-                <button hidden={widget.orderWidget===1} onClick={()=>up(widget.id,topicId,widget.orderWidget)}>Up</button>&nbsp;
-                <button hidden={widget.orderWidget===length} onClick={()=>down(widget.id,topicId,widget.orderWidget)}>Down</button>
+
+                <div className="float-right">
+                    <button className="btn" hidden={widget.orderWidget===1} onClick={()=>up(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
+                        <i className="fa fa-arrow-up"></i></button>&nbsp;
+                    <button className="btn" hidden={widget.orderWidget===length} onClick={()=>down(widget.id,topicId,widget.orderWidget)} style={{background:"#ffd232"}}>
+                        <i className="fa fa-arrow-down"></i></button>
+                    <select value={widget.widgetType} onChange={()=>selectWidget(widget.id,topicId,selectElem.value)} ref={node=>selectElem=node}
+                    style={{marginRight:"8px",marginLeft:"8px"}}
+                    >
+                        <option>Heading</option>
+                        <option>Paragraph</option>
+                        <option>List</option>
+                        <option>Image</option>
+                        <option>Link</option>
+                    </select>
+                    <button className="btn" style={{background:'#ea2a2a'}} onClick={()=>deleteWidget(widget.id,topicId,widget.orderWidget)}><i className="fa fa-times"></i>
+                    </button>
+                </div>
             </div>
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='List' && <ListContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
-        </li>
+        </div>
     )
 }
 

@@ -8,8 +8,12 @@ const Image = ({widget,preview,imgurl,widgetNamePlace}) =>{
     return (
         <div>
             <div hidden={preview}>
-                <input type="text" placeholder="Link Url" onChange={()=>imgurl(widget.id,imageUrlElem.value)} ref={node=>imageUrlElem=node} value={widget.imageUrl}/><br/>
-                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/><br/>
+                <h1>{widget.widgetType}</h1>
+                <div className="form-group">
+                    <input className="form-control" type="text" placeholder="Link Url" onChange={()=>imgurl(widget.id,imageUrlElem.value)} ref={node=>imageUrlElem=node} value={widget.imageUrl}/><br/>
+                    <input className="form-control" placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/><br/>
+                </div>
+                    <h4>Preview</h4>
             </div>
             {widget.widgetType==='Image'&&<img src={widget.imageUrl} style={{width:"300px",height:"200px"}}/>}
         </div>

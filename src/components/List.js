@@ -9,12 +9,16 @@ const List = ({widget,preview,listtext,listtype,widgetNamePlace})=>{
     return (
         <div>
             <div hidden={preview}>
-                <textarea onChange={()=>listtext(widget.id,listText.value)} ref={node=>listText=node} value={widget.listText} placeholder="Put each item in a separate row"/><br/>
-                <select ref={node=>listType=node} value={widget.listType} onChange={()=>listtype(widget.id,listType.value)}>
-                    <option>Ordered List</option>
-                    <option>Unordered List</option>
-                </select>
-                <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/><br/>
+                <h1>{widget.widgetType}</h1>
+                <div className="form-group">
+                    <textarea className="form-control" onChange={()=>listtext(widget.id,listText.value)} ref={node=>listText=node} value={widget.listText} placeholder="Put each item in a separate row"/><br/>
+                    <select  className="form-control" ref={node=>listType=node} value={widget.listType} onChange={()=>listtype(widget.id,listType.value)}>
+                        <option>Ordered List</option>
+                        <option>Unordered List</option>
+                    </select>
+                    <input  className="form-control" placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>widgetNamePlace(widget.id,widgetName.value)} value={widget.widgetName}/><br/>
+                </div>
+                    <h4>Preview</h4>
             </div>
             {widget.listType==='Ordered List' && <OrderedList key={widget.id} list={widget.listText}/>}
             {widget.listType==='Unordered List' && <UnorderedList key={widget.id} list={widget.listText}/>}
