@@ -2,7 +2,7 @@ import React from 'react';
 import {WidgetContainer} from "./WidgetList";
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-
+import * as Constants from '../constants';
 
 class TopicEditor extends React.Component{
 
@@ -78,7 +78,7 @@ const WidgetReducer = (state={
     widgets:[],topicId:"",preview:false}, action)=>{
     switch (action.type){
 
-        case 'UP':
+        case Constants.UP:
             let newarray=immutablySwapItems(state.widgets,action.orderWidget-1,action.orderWidget-2)
             newarray[action.orderWidget-2].orderWidget=newarray[action.orderWidget-2].orderWidget-1
             newarray[action.orderWidget-1].orderWidget=newarray[action.orderWidget-1].orderWidget+1
@@ -88,7 +88,7 @@ const WidgetReducer = (state={
                 preview:state.preview
             }
 
-        case 'DOWN':let newarray2=immutablySwapItems(state.widgets,action.orderWidget-1,action.orderWidget)
+        case Constants.DOWN:let newarray2=immutablySwapItems(state.widgets,action.orderWidget-1,action.orderWidget)
             newarray2[action.orderWidget].orderWidget=newarray2[action.orderWidget].orderWidget+1
             newarray2[action.orderWidget-1].orderWidget=newarray2[action.orderWidget-1].orderWidget-1
             return{
@@ -97,7 +97,7 @@ const WidgetReducer = (state={
                 preview:state.preview
             }
 
-        case 'LIST_TYPE':return {
+        case Constants.LIST_TYPE:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.listType=action.listType
@@ -106,7 +106,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'LIST_TEXT':return {
+        case Constants.LIST_TEXT:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.listText=action.listText
@@ -115,7 +115,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'IMAGE_URL':return {
+        case Constants.IMAGE_URL:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.imageUrl=action.imageUrl
@@ -125,7 +125,7 @@ const WidgetReducer = (state={
         }
 
 
-        case 'LINK_URL':return {
+        case Constants.LINK_URL:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.linkUrl=action.linkUrl
@@ -134,7 +134,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'LINK_TEXT':return {
+        case Constants.LINK_TEXT:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.linkText=action.linkText
@@ -143,7 +143,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'PARAGRAPH_TEXT':return {
+        case Constants.PARAGRAPH_TEXT:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.paragraphText=action.paragraphText
@@ -152,13 +152,13 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'PREVIEW':return{
+        case Constants.PREVIEW:return{
             widgets:state.widgets,
             topicId:action.topicId,
             preview: !action.preview
         }
 
-        case 'WIDGET_NAME': return {
+        case Constants.WIDGET_NAME: return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.widgetName=action.widgetName
@@ -167,7 +167,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'HEADING_SIZE':return {
+        case Constants.HEADING_SIZE:return {
             widgets:state.widgets.map(widget => {
                 if (widget.id===action.id){
                     widget.size=action.size
@@ -176,7 +176,7 @@ const WidgetReducer = (state={
             })
         }
 
-        case 'HEADING_TEXT':
+        case Constants.HEADING_TEXT:
             return {
                 widgets:state.widgets.map(widget => {
                     if (widget.id===action.id){
@@ -186,7 +186,7 @@ const WidgetReducer = (state={
                 })
             }
 
-        case 'SELECT_WIDGET':
+        case Constants.SELECT_WIDGET:
             let newState={
             widgets:state.widgets.filter(widget=>{
                 if(widget.id===action.id) {
@@ -197,13 +197,13 @@ const WidgetReducer = (state={
             return JSON.parse(JSON.stringify(newState));
 
 
-        case 'FIND_WIDGETS_TOPIC':return{
+        case Constants.FIND_WIDGETS_TOPIC:return{
             widgets:action.widgets,
             topicId:action.topicId
         }
 
 
-        case 'ADD':return {
+        case Constants.ADD:return {
             widgets:[...state.widgets,
                 {
                     topicId:action.topicId,
@@ -217,7 +217,7 @@ const WidgetReducer = (state={
             topicId:action.topicId
         }
 
-        case 'DELETE': return {
+        case Constants.DELETE: return {
             widgets: state.widgets.filter(widget=>(
                 widget.id !== action.id
             )).map(widget=>{
@@ -228,7 +228,7 @@ const WidgetReducer = (state={
             topicId:action.topicId
         }
 
-        case 'SAVE': fetch('http://localhost:8080/api/topic/TID/widget/save'.replace('TID',action.topicId),{
+        case Constants.SAVE: fetch('http://localhost:8080/api/topic/TID/widget/save'.replace('TID',action.topicId),{
             method:'POST',
             body:JSON.stringify(state.widgets),
             headers:{

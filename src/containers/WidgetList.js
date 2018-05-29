@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import * as Constants from '../constants';
+
 const Paragraph = ({widget,preview,dispatch})=> {
 
     let textareaElem;
@@ -9,13 +11,13 @@ const Paragraph = ({widget,preview,dispatch})=> {
         <div>
             <div hidden={preview}>
                 <textarea onChange={()=>dispatch({
-                    type:'PARAGRAPH_TEXT',
+                    type:Constants.PARAGRAPH_TEXT,
                     id:widget.id,
                     paragraphText:textareaElem.value
                 })} ref={node=>textareaElem=node} value={widget.paragraphText}/><br/>
                 <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
                     {
-                        type:'WIDGET_NAME',
+                        type:Constants.WIDGET_NAME,
                         id:widget.id,
                         widgetName:widgetName.value
                     }
@@ -34,12 +36,12 @@ const List = ({widget,preview,dispatch})=>{
         <div>
             <div hidden={preview}>
                 <textarea onChange={()=>dispatch({
-                    type:'LIST_TEXT',
+                    type:Constants.LIST_TEXT,
                     id:widget.id,
                     listText:listtext.value
                 })} ref={node=>listtext=node} value={widget.listText} placeholder="Put each item in a separate row"/><br/>
                 <select ref={node=>listType=node} value={widget.listType} onChange={()=>dispatch({
-                    type:'LIST_TYPE',
+                    type:Constants.LIST_TYPE,
                     id:widget.id,
                     listType:listType.value
                 })}>
@@ -48,7 +50,7 @@ const List = ({widget,preview,dispatch})=>{
                 </select>
                 <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
                     {
-                        type:'WIDGET_NAME',
+                        type:Constants.WIDGET_NAME,
                         id:widget.id,
                         widgetName:widgetName.value
                     }
@@ -97,14 +99,14 @@ const Image = ({widget,preview,dispatch}) =>{
             <div hidden={preview}>
                 <input type="text" placeholder="Link Url" onChange={()=>dispatch(
                     {
-                        type:'IMAGE_URL',
+                        type:Constants.IMAGE_URL,
                         id:widget.id,
                         imageUrl:imageUrlElem.value
                     }
                 )} ref={node=>imageUrlElem=node} value={widget.imageUrl}/><br/>
                 <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
                     {
-                        type:'WIDGET_NAME',
+                        type:Constants.WIDGET_NAME,
                         id:widget.id,
                         widgetName:widgetName.value
                     }
@@ -124,12 +126,12 @@ const Heading = ({widget,preview,dispatch}) => {
         <div>
             <div hidden={preview}>
                 <input ref={node=>inputElem=node} onChange={()=>dispatch({
-                    type:'HEADING_TEXT',
+                    type:Constants.HEADING_TEXT,
                     id:widget.id,
                     text:inputElem.value
                 })} value={widget.text} type="text" placeholder="Heading text"/>
                 <select onChange={()=>dispatch({
-                    type:'HEADING_SIZE',
+                    type:Constants.HEADING_SIZE,
                     id:widget.id,
                     size:selectElem.value
                 })} ref={node=>selectElem=node} value={widget.size}>
@@ -139,7 +141,7 @@ const Heading = ({widget,preview,dispatch}) => {
                 </select>
                 <input placeholder="Widget Name" type="text" ref={node=>widgetName=node} onChange={()=>dispatch(
                     {
-                        type:'WIDGET_NAME',
+                        type:Constants.WIDGET_NAME,
                         id:widget.id,
                         widgetName:widgetName.value
                     }
@@ -161,21 +163,21 @@ const Link = ({widget,preview,dispatch}) =>{
             <div hidden={preview}>
                 <input type="text" placeholder="Link Url" onChange={()=>dispatch(
                     {
-                        type:'LINK_URL',
+                        type:Constants.LINK_URL,
                         id:widget.id,
                         linkUrl:urlName.value
                     }
                 )} ref={node=>urlName=node} value={widget.linkUrl} /><br/>
                 <input type="text" placeholder="Link Text"  onChange={()=>dispatch(
                     {
-                        type:'LINK_TEXT',
+                        type:Constants.LINK_TEXT,
                         id:widget.id,
                         linkText:urlText.value
                     }
                 )} ref={node=>urlText=node} value={widget.linkText}/><br/>
                 <input placeholder="Widget Name" type="text" value={widget.linkText} onChange={()=>dispatch(
                     {
-                        type:'WIDGET_NAME',
+                        type:Constants.WIDGET_NAME,
                         id:widget.id,
                         widgetName:widgetName.value
                     }
@@ -200,7 +202,7 @@ export const Widget = ({widget,topicId,preview,length,dispatch}) => {
                 <h1>{widget.widgetType}</h1>
                 <br/>
                 <select value={widget.widgetType} onChange={()=>dispatch({
-                    type:'SELECT_WIDGET',
+                    type:Constants.SELECT_WIDGET,
                     id:widget.id,
                     topicId:topicId,
                     widgetType:selectElem.value
@@ -212,12 +214,12 @@ export const Widget = ({widget,topicId,preview,length,dispatch}) => {
                             <option>Link</option>
                 </select>
                 <button onClick={() => {
-                    dispatch({type: 'DELETE', id: widget.id, topicId: topicId,orderWidget:widget.orderWidget})
+                    dispatch({type: Constants.DELETE, id: widget.id, topicId: topicId,orderWidget:widget.orderWidget})
                 }}>Delete Widget
                 </button>&nbsp;
                 <button hidden={widget.orderWidget===1} onClick={()=>dispatch(
                     {
-                        type:'UP',
+                        type:Constants.UP,
                         id:widget.id,
                         topicId:topicId,
                         orderWidget:widget.orderWidget
@@ -225,7 +227,7 @@ export const Widget = ({widget,topicId,preview,length,dispatch}) => {
                 )}>Up</button>&nbsp;
                 <button hidden={widget.orderWidget===length} onClick={()=>dispatch(
                 {
-                    type:'DOWN',
+                    type:Constants.DOWN,
                     id:widget.id,
                     topicId:topicId,
                     orderWidget:widget.orderWidget
@@ -292,15 +294,15 @@ const findWidgetsForTopic = (topicId,dispatch) => (
 )
 
 const save = (topicId,dispatch) =>(
-    dispatch({type:"SAVE",topicId:topicId})
+    dispatch({type:Constants.SAVE,topicId:topicId})
 )
 
 const add = (topicId,dispatch) => (
-    dispatch({type:'ADD',topicId:topicId})
+    dispatch({type:Constants.ADD,topicId:topicId})
 )
 
 const preview = (topicId,preview,dispatch) => (
-    dispatch({type:'PREVIEW',topicId:topicId,preview:preview})
+    dispatch({type:Constants.PREVIEW,topicId:topicId,preview:preview})
 )
 
 const dispatchToPropsMapper =(dispatch)=>({
