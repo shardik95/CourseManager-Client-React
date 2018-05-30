@@ -1,4 +1,5 @@
 import * as Constants from "../constants";
+import React from 'react';
 
 export const findWidgetsForTopic = (topicId,dispatch) => (
     fetch("http://localhost:8080/api/topic/TID/widget".replace("TID",topicId))
@@ -134,3 +135,14 @@ export const imgurl= (id,url,dispatch)=>(
         }
     )
 )
+
+export const search = (searchQuery,dispatch)=>(
+    fetch("https://www.googleapis.com/customsearch/v1?key=AIzaSyCG-dD8kckSHXcOJfE82mZzRmU5l2J0b5o&cx=017661173743464904363:okgv-u30f8q&q=QUERY".replace("QUERY",searchQuery))
+        .then(response => (response.json()))
+        .then(results => dispatch(
+            {
+                type:'SEARCH',
+                results:results
+            }
+            )
+        ))

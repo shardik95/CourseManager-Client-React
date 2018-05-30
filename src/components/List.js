@@ -12,7 +12,7 @@ const List = ({widget,preview,listtext,listtype,widgetNamePlace})=>{
                 <h2 style={{padding:"10px"}}>{widget.widgetType}</h2>
                 <div className="form-group" style={{padding:"10px"}}>
                     <textarea className="form-control" onChange={()=>listtext(widget.id,listText.value)} ref={node=>listText=node} value={widget.listText} placeholder="Put each item in a separate row"/><br/>
-                    <select  className="form-control" ref={node=>listType=node} value={widget.listType} onChange={()=>listtype(widget.id,listType.value)}>
+                    <select className="form-control" ref={node=>listType=node} value={widget.listType} onChange={()=>listtype(widget.id,listType.value)}>
                         <option>Ordered List</option>
                         <option>Unordered List</option>
                     </select>

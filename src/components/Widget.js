@@ -9,8 +9,9 @@ import {ListContainer} from "./List";
 import {ImageContainer} from "./Image";
 
 
-export const Widget = ({widget,topicId,preview,length,selectWidget,up,down,deleteWidget}) => {
+export const Widget = ({widget,topicId,preview,length,results,selectWidget,up,down,deleteWidget}) => {
     let selectElem
+
     return (
         <div className="border" style={{marginBottom:"15px"}}>
             <div hidden={preview}>
@@ -36,7 +37,7 @@ export const Widget = ({widget,topicId,preview,length,selectWidget,up,down,delet
             {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
             {widget.widgetType==='List' && <ListContainer widget={widget} preview={preview}/>}
-            {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview}/>}
+            {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview} results={results}/>}
             {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
         </div>
     )

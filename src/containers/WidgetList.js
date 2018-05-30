@@ -22,7 +22,9 @@ class WidgetList extends React.Component{
         }
     }
 
+
     render(){
+        //console.log(this.props.results)
         return(
             <div>
                 <div className="row float-right" style={{marginRight:"10px",marginTop:"10px"}}>
@@ -35,7 +37,7 @@ class WidgetList extends React.Component{
                         {this.props.widgets.map(
                             widget => (
                                 <div>
-                                <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode} length={this.props.widgets.length}/>
+                                <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode} length={this.props.widgets.length} results={this.props.results}/>
                                 </div>
                             )
                         )}
@@ -58,7 +60,8 @@ const dispatchToPropsMapper =(dispatch)=>({
 const stateToPropsMapper = state => (
     {
         widgets:state.widgets,
-        previewMode:state.preview
+        previewMode:state.preview,
+        results:state.results
     }
 )
 

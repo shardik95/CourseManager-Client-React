@@ -10,7 +10,7 @@ function immutablySwapItems(items, firstIndex, secondIndex) {
 }
 
  export const WidgetReducer = (state={
-    widgets:[],topicId:"",preview:false}, action)=>{
+    widgets:[],topicId:"",preview:false,results:[]}, action)=>{
     switch (action.type){
 
         case Constants.UP:
@@ -163,7 +163,7 @@ function immutablySwapItems(items, firstIndex, secondIndex) {
             topicId:action.topicId
         }
 
-        case Constants.SAVE: fetch('http://localhost:8080/api/topic/TID/widget/save'.replace('TID',action.topicId),{
+        case Constants.SAVE: fetch('http://localhost:8080/api/topic/TID/widget'.replace('TID',action.topicId),{
             method:'POST',
             body:JSON.stringify(state.widgets),
             headers:{
@@ -171,6 +171,21 @@ function immutablySwapItems(items, firstIndex, secondIndex) {
             }
         })
             return state;
+
+        case 'SEARCH':
+                let array1 =action.results.items.map(result=>(
+                        result.pagemap
+               ));
+                let array2= array1.map(item=>{
+                    if(item.cse_image){
+                        return item.cse_image
+                    }
+                }).filter(item=>(
+                    item!==undefined
+                ))
+            let array3=array2.map(item=>item[0]).map(item=>item.src)
+            state.results=array3
+            return JSON.parse(JSON.stringify(state));
 
         default: return state;
     }
