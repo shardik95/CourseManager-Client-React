@@ -187,6 +187,7 @@ function immutablySwapItems(items, firstIndex, secondIndex) {
             state.results=array3
             return JSON.parse(JSON.stringify(state));
 
+
         default: return state;
     }
 }

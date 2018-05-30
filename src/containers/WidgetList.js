@@ -37,7 +37,7 @@ class WidgetList extends React.Component{
                         {this.props.widgets.map(
                             widget => (
                                 <div>
-                                <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode} length={this.props.widgets.length} results={this.props.results}/>
+                                <WidgetCont key={widget.id} widget={widget} topicId={this.props.topicId} preview={this.props.previewMode} length={this.props.widgets.length} results={this.props.results} />
                                 </div>
                             )
                         )}
@@ -61,7 +61,7 @@ const stateToPropsMapper = state => (
     {
         widgets:state.widgets,
         previewMode:state.preview,
-        results:state.results
+        results:state.results,
     }
 )
 

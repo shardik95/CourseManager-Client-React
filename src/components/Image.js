@@ -2,7 +2,7 @@ import * as Actions from "../actions";
 import React from 'react';
 import {connect} from 'react-redux'
 
-const Image = ({widget,preview,results,imgurl,widgetNamePlace,search}) =>{
+const Image = ({widget,preview,results,imgurl,widgetNamePlace,search,clickImage}) =>{
     let imageUrlElem;
     let widgetName;
     let searchInput;
@@ -23,7 +23,9 @@ const Image = ({widget,preview,results,imgurl,widgetNamePlace,search}) =>{
                     </div>
                     <br/>
                             {results!==undefined &&results.length>0 && results.map(result=>(
-                                    <img style={{widget:"150px",height:"150px",margin:"10px"}} src={result}/>
+                                    <img style={{widget:"150px",height:"150px",margin:"10px"}} src={result} onClick={()=>{
+                                       clickImage(widget.id,result)
+                                    }}/>
                         ))}
                 </div>
                     <h4 style={{padding:"10px"}}>Preview</h4>
@@ -40,7 +42,8 @@ const Image = ({widget,preview,results,imgurl,widgetNamePlace,search}) =>{
 const dispatchToImagePropsMapper = dispatch => ({
     imgurl: (id,url)=>Actions.imgurl(id,url,dispatch),
     widgetNamePlace: (id,widgetname)=> Actions.widgetName(id,widgetname,dispatch),
-    search:(searchQuery)=> Actions.search(searchQuery,dispatch)
+    search:(searchQuery)=> Actions.search(searchQuery,dispatch),
+    clickImage: (id,result) => Actions.clickImage(id,result,dispatch)
 })
 
 

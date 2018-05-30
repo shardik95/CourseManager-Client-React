@@ -146,3 +146,13 @@ export const search = (searchQuery,dispatch)=>(
             }
             )
         ))
+
+export const clickImage = (id,result,dispatch) =>(
+    dispatch(
+        {
+            type:Constants.IMAGE_URL,
+            id:id,
+            imageUrl:result
+        }
+    )
+)
