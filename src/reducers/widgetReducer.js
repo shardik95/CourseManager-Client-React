@@ -172,7 +172,7 @@ function immutablySwapItems(items, firstIndex, secondIndex) {
         })
             return state;
 
-        case 'SEARCH':
+        case Constants.SEARCH:
                 let array1 =action.results.items.map(result=>(
                         result.pagemap
                ));

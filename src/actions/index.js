@@ -141,7 +141,7 @@ export const search = (searchQuery,dispatch)=>(
         .then(response => (response.json()))
         .then(results => dispatch(
             {
-                type:'SEARCH',
+                type:Constants.SEARCH,
                 results:results
             }
             )

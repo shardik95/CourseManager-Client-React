@@ -15,3 +15,4 @@ export const FIND_WIDGETS_TOPIC = 'FIND_WIDGETS_TOPIC';
 export const ADD = 'ADD';
 export const DELETE = 'DELETE';
 export const SAVE = 'SAVE';
+export const SEARCH = 'SEARCH';
